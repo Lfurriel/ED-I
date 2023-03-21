@@ -1,2 +1,5 @@
 # ED-I
-Nesse repositório estão os trabalhos e exercícios praticados no meu 3º semestre no curso de ciência da computação
+
+Aqui estão os projetos praticados nas aulas de Estrutura de Dados I
+
+Março/2023 - Julho/2023
