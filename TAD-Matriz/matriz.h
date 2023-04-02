@@ -3,6 +3,7 @@
 //Tipo Exportado 
 typedef struct matriz Matriz;
 
+
 //Funções exportadas
 //------------------------------------------------------
 //Funções cria: aloca e retorna matriz m x n

@@ -1,77 +1,49 @@
-#include <stdlib.h>
+#include "lista.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "lista.c"
 
-int main()
+int main(int argc, char *argv[])
 {
-    int op = 1;
-    char pal[60];
-    TLista *cabeca = NULL, *achou;
+  lista *l = malloc(sizeof(lista));
+  tipo_elem *x = malloc(sizeof(tipo_elem));
+  int op = 1;
+  char pal[30];
+  int i = 1;
+  while (op)
+  {
+    printf("Digite a chave: ");
+    scanf("%d", &x->chave);
+    printf("Digite o nome: ");
+    scanf(" %[^\n]s", x->info.nome);
+    /*printf("Digite a idade: ");
+    scanf("%d", &x->info.idade);
+    printf("Digite a média: ");
+    scanf("%f", &x->info.media_final);*/
+    x->info.idade = i;
+    x->info.media_final = i;
+    i++;
 
-    definir(&cabeca); // inicializa
-
-    if(vazia())
-        printf("LISTA VAZIA\n");
+    if(Inserir_ord_ch(*x, l))
+      printf("INSERIDO COM SUCESSO\n");
     else
-        printf("LISTA NÃO ESTÁ VAZIA\n");
+      printf("ERRO AO INSERIR\n");
 
-    if(cheia())
-        printf("LISTA CHEIA\n");
-    else
-        printf("LISTA NÃO ESTÁ CHEIA\n");
+    printf("\nInserir novo? <1> SIM <0> NÃO\n");
+    scanf("%d", &op);
 
-    while (op) //laço para inserir diversos elementos
+    if (l->nelem == MAX)
     {
-        insire_ordenado(&cabeca);
-        printf("Inserir novo? <1> SIM, <0> NÃO\n");
-        scanf(" %d", &op);
-        if(quantidade_elementos == MAX) {
-            printf("NÃO É POSSÍVEL INSERIR MAIS ELEMENTOS\n");
-            op = 0;
-        }
+      printf("\nLIMITE DA FILA ALCANÇADO\n");
+      op = 0;
     }
+  }
 
-    if(cheia())
-        printf("LISTA CHEIA\n");
-    else
-        printf("LISTA NÃO ESTÁ CHEIA\n");
+  Imprimir(l);
 
-    apresentar_lista(cabeca); //Apresenta a lista por inteiro
+  int p;
+  Busca_bin(9, l, &p);
+  printf("Busca %d", p);
 
-    printf("\n\nDigite o id que quer buscar: ");
-    scanf(" %d", &op);
-    achou = buscar_id(cabeca, op);
-    if(achou)
-        printf("ACHAMOS REGISTRO %d, NOME: %s\n", achou->id, achou->nome);
-    else
-        printf("NÃO ACHOU");
-
-    printf("\n\nDigite o id que quer remover: ");
-    scanf(" %d", &op);
-    remove_id(&cabeca, op);
-    apresentar_lista(cabeca);
-
-    printf("\n\nDigite o nome que quer buscar: ");
-    scanf(" %s", pal);
-
-    achou = buscar_nome(cabeca, pal);
-    if(achou)
-        printf("ACHAMOS REGISTRO %d, NOME: %s\n", achou->id, achou->nome);
-    else
-        printf("NÃO ACHOU");
-
-    printf("\n\nDigite o nome que quer remover: ");
-    scanf(" %s",pal);
-    remove_nome(&cabeca, pal);
-    apresentar_lista(cabeca);
-
-    apagar(&cabeca);
-    apresentar_lista(cabeca);
-
-    if(vazia())
-        printf("LISTA VAZIA\n");
-    else
-        printf("LISTA NÃO ESTÁ VAZIA\n");
-
+  return 0;
 }
