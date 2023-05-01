@@ -23,13 +23,6 @@ typedef struct no
     struct no *dir;
 } no;
 
-typedef struct pilha {
-    no *no;
-    struct pilha *prox;
-} pilha;
-
-
-
 void posOrdem_pilha(no *raiz) {
     int i = 0;
     no *pilha[1000];
