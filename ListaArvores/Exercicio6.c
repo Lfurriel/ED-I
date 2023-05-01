@@ -24,7 +24,7 @@ no* busca_maior_abb(no *raiz) {
 //a)  Função  que  retorna  o  maior  elemento  da  árvore  (dado  um  campo  chave inteiro).
 no* busca_maior_ab(no *raiz) {
 
-	if(!raiz)
+	if (!raiz)
 		return NULL;
 
 	int maior, esq, dir;
@@ -53,15 +53,10 @@ no* busca_maior_ab(no *raiz) {
 
 //b)  Função que retorne o total de nós folhas de uma AB
 int total_no_folha (no *raiz) {
-  int num = 0;
-  if (!raiz)
-  	return 0;
-
-  if (raiz->esq != NULL && raiz->dir != NULL)
-    return 1;
-
-  num += total_no_folha(raiz->esq);
-  num += total_no_folha(raiz->dir);
-	
-  return num;
+	if (!raiz)
+		return 0;
+	if (!(raiz->esq) && !(raiz->dir))
+		return 1;
+	else	
+		return (total_no_folha(raiz->esq) + total_no_folha(raiz->dir));
 }

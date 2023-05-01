@@ -12,8 +12,7 @@ typedef struct no
     struct no *dir;
 } no;
 
-int cheia(no *raiz)
-{
+int cheia(no *raiz) {
 
     if (!raiz)
         return 0;
@@ -37,35 +36,7 @@ int cheia(no *raiz)
     return 1;
 }
 
-no *cria_raiz(no *raiz, int chave)
-{
-    raiz = malloc(sizeof(no));
-    raiz->esq = NULL;
-    raiz->dir = NULL;
-    raiz->info = chave;
-    return raiz;
-}
-
-no *insere(no *raiz, int chave)
-{
-
-    if (!raiz)
-    {
-        raiz = cria_raiz(raiz, chave);
-        return raiz;
-    }
-
-    if (chave < raiz->info)
-        raiz->esq = insere(raiz->esq, chave);
-
-    if (chave > raiz->info)
-        raiz->dir = insere(raiz->dir, chave);
-
-    return raiz;
-}
-
-int calcula_altura(no *t)
-{
+int calcula_altura(no *t) {
     if (!t) // Se nó t é vazio/nulo.
         return 0;
     int altE = calcula_altura(t->esq);
@@ -74,32 +45,4 @@ int calcula_altura(no *t)
         return (altE + 1);
 
     return (altD + 1);
-}
-
-int main()
-{
-    no *arvere = malloc(sizeof(no));
-    arvere = NULL;
-    int chave;
-
-    /*
-    10
-    8
-    7
-    9
-    14
-    13
-    15
-    */
-
-    for (int i = 1; i <= 7; i++)
-    {
-        scanf(" %d", &chave);
-        arvere = insere(arvere, chave);
-    }
-
-    if (cheia(arvere))
-        printf("cheia!\n");
-    else
-        printf("Não\n");
 }

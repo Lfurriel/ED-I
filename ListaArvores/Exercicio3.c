@@ -54,14 +54,14 @@ no *libera_no (no *t) {
     no aux;
     if (!t)
         return NULL;
-    if ((*t)->esq == NULL) {
+    if (!((*t)->esq)) {
         aux = *t;
         *t = (*t)->dir;
         free(aux);
 
         return t;
 
-    } else if ((*t)->dir == NULL) {
+    } else if (!((*t)->dir)) {
         aux = *t;
         *t = (*t)->esq;
         free(aux);
@@ -75,7 +75,7 @@ no *libera_no (no *t) {
 no *substitui_menor_dir(no *t, no*suc) {
   no aux;
 
-  if ((*suc)->esq == NULL) {
+  if (!((*suc)->esq)) {
     (*t)->info = (*suc)->info;
     aux = *suc;
     (*suc) = (*suc)->dir;
