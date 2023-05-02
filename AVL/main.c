@@ -210,30 +210,30 @@ tipo_no* remover(tipo_no *raiz, int info) {
     return raiz;
 }
 
-tipo_no* rotacao_direita(tipo_no *no) {
-    tipo_no *esq = no->esq;
-    tipo_no *dir = esq->dir;
+tipo_no* rotacao_direita(tipo_no *raiz) {
+    tipo_no *nova_raiz = raiz->esq;
+    tipo_no *filho = nova_raiz->dir;
 
-    esq->dir = no;
-    no->esq = dir;
+    nova_raiz->dir = raiz;
+    raiz->esq = filho;
 
-    no->altura = maior(altura(no->esq), altura(no->dir) + 1);
-    esq->altura = maior(altura(esq->esq), altura(esq->dir) + 1);
+    raiz->altura = maior(altura(raiz->esq), altura(raiz->dir) + 1);
+    nova_raiz->altura = maior(altura(nova_raiz->esq), altura(nova_raiz->dir) + 1);
 
-    return esq;
+    return nova_raiz;
 }
 
-tipo_no* rotacao_esquerda(tipo_no *no) {
-    tipo_no *dir = no->dir;
-    tipo_no *esq = dir->esq;
+tipo_no* rotacao_esquerda(tipo_no *raiz) {
+    tipo_no *nova_raiz = raiz->dir;
+    tipo_no *filho = nova_raiz->esq;
 
-    dir->esq = no;
-    no->dir = esq;
+    nova_raiz->esq = raiz;
+    raiz->dir = filho;
 
-    no->altura = maior(altura(no->esq), altura(no->dir) + 1);
-    dir->altura = maior(altura(dir->esq), altura(dir->dir) + 1);
+    raiz->altura = maior(altura(raiz->esq), altura(raiz->dir) + 1);
+    nova_raiz->altura = maior(altura(nova_raiz->esq), altura(nova_raiz->dir) + 1);
 
-    return dir;
+    return nova_raiz;
 }
 
 tipo_no* rotacao_esquerda_direita(tipo_no *no) {
