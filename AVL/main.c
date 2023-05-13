@@ -1,3 +1,10 @@
+/**
+ * Implementação de uma árvore AVL (Adelson Velsky e Landis)
+ * 
+ * @author Júlia Rodrigues Marques do Nascimento
+ * @author Lucas Furriel Rodrigues
+*/
+
 #include "avl.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -95,6 +102,12 @@ int main() {
     return 0;
 }
 
+/**
+ * Aloca um espaço na memória para um novo nó da árvore
+ * 
+ * @param info inteiro que representa a informação salva no nó
+ * @returns nó criado
+*/
 tipo_no* novo_no(int info) {
     tipo_no *raiz = malloc(sizeof(tipo_no));
     
@@ -111,6 +124,13 @@ tipo_no* novo_no(int info) {
     return raiz;
 }
 
+/**
+ * Busca na árvore binária a posição que será inserido o novo nó de acordo com a informação, após
+ *  inserção é feito o balanceamento da árvore
+ * 
+ * @param info inteiro que representa a informação salva no nó
+ * @returns nó
+*/
 tipo_no* insere(tipo_no *raiz, int info) {
     
     if(!raiz) {
@@ -142,6 +162,12 @@ tipo_no* insere(tipo_no *raiz, int info) {
     return raiz;
 }
 
+/**
+ * Função recursiva que calcula a altura de uma árvore partindo de um nó raiz
+ * 
+ * @param no nó da árvore 
+ * @returns altura da árvore
+*/
 int altura(tipo_no *no) {
     if(!no)
         return -1;
@@ -149,6 +175,12 @@ int altura(tipo_no *no) {
     return no->altura;
 }
 
+/**
+ * Função que calcula o fator de balanceamento de um nó
+ * 
+ * @param no nó da árvore 
+ * @returns inteiro
+*/
 int diferenca_altura(tipo_no *no) {
     if(!no)
         return 0;
@@ -156,10 +188,27 @@ int diferenca_altura(tipo_no *no) {
     return altura(no->esq) - altura(no->dir);
 }
 
+/**
+ * Ternário que retorna qual o maior inteiro dentre duas opções
+ * 
+ * @param esq valor A
+ * @param dir valor B
+ * 
+ * @returns o maior inteiro
+*/
 int maior(int esq, int dir) {
     return (esq > dir) ? esq : dir;
 }
 
+/**
+ * Função que busca na AVL um nó a ser removido e após remoção
+ * faz novamente o balanceamento da árvore
+ * 
+ * @param raiz nó raiz de árvore/sub-árvore
+ * @param info valor do nó a ser removido
+ * 
+ * @returns nó da árvore
+*/
 tipo_no* remover(tipo_no *raiz, int info) {
     if(!raiz)
         return raiz;
@@ -210,6 +259,13 @@ tipo_no* remover(tipo_no *raiz, int info) {
     return raiz;
 }
 
+/**
+ * Rotação simples à direita
+ * 
+ * @param raiz nó raiz que será feito a rotação
+ * 
+ * @returns nó da árvore
+*/
 tipo_no* rotacao_direita(tipo_no *raiz) {
     tipo_no *nova_raiz = raiz->esq;
     tipo_no *filho = nova_raiz->dir;
@@ -223,6 +279,13 @@ tipo_no* rotacao_direita(tipo_no *raiz) {
     return nova_raiz;
 }
 
+/**
+ * Rotação simples à esquerda
+ * 
+ * @param raiz nó raiz que será feito a rotação
+ * 
+ * @returns nó da árvore
+*/
 tipo_no* rotacao_esquerda(tipo_no *raiz) {
     tipo_no *nova_raiz = raiz->dir;
     tipo_no *filho = nova_raiz->esq;
@@ -236,18 +299,39 @@ tipo_no* rotacao_esquerda(tipo_no *raiz) {
     return nova_raiz;
 }
 
+/**
+ * Rotação dupla à direita
+ * 
+ * @param no nó raiz que será feito a rotação
+ * 
+ * @returns nó da árvore
+*/
 tipo_no* rotacao_esquerda_direita(tipo_no *no) {
     no->esq = rotacao_esquerda(no);
 
     return rotacao_direita(no);
 }
 
+/**
+ * Rotação dupla à esqurda
+ * 
+ * @param no nó raiz que será feito a rotação
+ * 
+ * @returns nó da árvore
+*/
 tipo_no* rotacao_direita_esquerda(tipo_no *no) {
     no->dir = rotacao_direita(no);
 
     return rotacao_esquerda(no);
 }
 
+/**
+ * Busca na AVL o menor elemento da sub-árvore direita
+ * 
+ * @param no nó raiz da sub-árvore
+ * 
+ * @returns "menor dos maiores"
+*/
 tipo_no* menor_direita(tipo_no *raiz) {
     tipo_no *busca = raiz;
 
@@ -258,6 +342,14 @@ tipo_no* menor_direita(tipo_no *raiz) {
     return busca;    
 }
 
+/**
+ * Busca na AVL binariamente de forma recursiva um elemento na AVL
+ * 
+ * @param raiz nó raiz
+ * @param info elemento a ser procurado
+ * 
+ * @returns "menor dos maiores"
+*/
 tipo_no* busca_binaria(tipo_no *raiz, int info) {
     if(!raiz)
         return NULL;
@@ -272,6 +364,11 @@ tipo_no* busca_binaria(tipo_no *raiz, int info) {
 
 }
 
+/**
+ * Printa de forma "em ordem" os elementos da AVL
+ * 
+ * @param raiz nó raiz
+*/
 void in_order(tipo_no *raiz) {
     if(raiz) {
         in_order(raiz->esq);
@@ -280,6 +377,11 @@ void in_order(tipo_no *raiz) {
     }
 }
 
+/**
+ * Printa de forma "pré ordem" os elementos da AVL
+ * 
+ * @param raiz nó raiz
+*/
 void pre_order(tipo_no *raiz) {
     if(raiz) {
         printf(" [%d] ", raiz->info);
@@ -288,6 +390,11 @@ void pre_order(tipo_no *raiz) {
     }
 }
 
+/**
+ * Printa de forma "pós ordem" os elementos da AVL
+ * 
+ * @param raiz nó raiz
+*/
 void pos_order(tipo_no *raiz) {
     if(raiz) {
         pos_order(raiz->esq);
@@ -296,6 +403,11 @@ void pos_order(tipo_no *raiz) {
     }
 }
 
+/**
+ * Remove da memória todos os elementos da AVL
+ * 
+ * @param raiz nó raiz
+*/
 void expurgar(tipo_no **raiz) {
    if ((*raiz)) {
         if((*raiz)->esq)
@@ -308,6 +420,12 @@ void expurgar(tipo_no **raiz) {
     }
 }
 
+/**
+ * Printa os elementos da AVL
+ * 
+ * @param raiz nó raiz
+ * @param altura altura da árvore
+*/
 void imprime_arvore(tipo_no *raiz, int altura) {
     int i;
     if (raiz) {
