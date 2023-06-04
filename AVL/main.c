@@ -181,8 +181,7 @@ int altura(tipo_no *no) {
  * @param no nó da árvore 
  * @returns inteiro
 */
-int diferenca_altura(tipo_no *no) {
-    if(!no)
+int diferenca_altura(tipo_no *no) {    if(!no)
         return 0;
 
     return altura(no->esq) - altura(no->dir);
@@ -244,14 +243,15 @@ tipo_no* remover(tipo_no *raiz, int info) {
 
     int diferenca = diferenca_altura(raiz);
 
+    if(diferenca < -1 && diferenca_altura(raiz->dir) >= 0)
+            return rotacao_esquerda(raiz);
     if(diferenca > 1 && diferenca_altura(raiz->esq) >= 0)
         return rotacao_direita(raiz);
     
     if(diferenca > 1 && diferenca_altura(raiz->esq) < 0)
         return rotacao_esquerda_direita(raiz);
 
-    if(diferenca < -1 && diferenca_altura(raiz->dir) >= 0)
-        return rotacao_esquerda(raiz);
+    
     
     if(diferenca < -1 && diferenca_altura(raiz->dir) < 0)
         return rotacao_direita_esquerda(raiz);
