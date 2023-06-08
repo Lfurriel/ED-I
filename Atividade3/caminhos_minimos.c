@@ -5,14 +5,14 @@
 
 typedef struct grafo
 {
-    int num_no;
+    int qtd_nos;
     int **matriz;
 } Grafo;
 
 Grafo *criar_grafo()
 {
     Grafo *grafo = malloc(sizeof(Grafo));
-    grafo->num_no = 0;
+    grafo->qtd_nos = 0;
     grafo->matriz = NULL;
     return grafo;
 }
@@ -26,7 +26,7 @@ void le_arquivo(Grafo **grafo, char *file_name)
     fscanf(fp, "%d", &num);
     printf("NUM: %d\n", num);
 
-    (*grafo)->num_no = num;
+    (*grafo)->qtd_nos = num;
     (*grafo)->matriz = (int **)calloc(num, sizeof(int *));
     for (i = 0; i < num; i++)
         (*grafo)->matriz[i] = (int *)calloc(num, sizeof(int));
@@ -71,11 +71,11 @@ int encontra_menor(int *caminho_minimo, bool visitado[], int num_no)
 
 void dijkstra(Grafo *grafo, int c)
 {
-    int *dist = malloc(grafo->num_no * sizeof(int));
-    bool *visitado = malloc(grafo->num_no * sizeof(bool));
+    int *dist = malloc(grafo->qtd_nos * sizeof(int));
+    bool *visitado = malloc(grafo->qtd_nos * sizeof(bool));
     int i, j;
 
-    for (i = 0; i < grafo->num_no; i++)
+    for (i = 0; i < grafo->qtd_nos; i++)
     {
         dist[i] = INT_MAX;
         visitado[i] = false;
@@ -83,12 +83,12 @@ void dijkstra(Grafo *grafo, int c)
 
     dist[c] = 0;
 
-    for (i = 0; i < grafo->num_no - 1; i++)
+    for (i = 0; i < grafo->qtd_nos - 1; i++)
     {
-        int u = encontra_menor(dist, visitado, grafo->num_no);
+        int u = encontra_menor(dist, visitado, grafo->qtd_nos);
         visitado[u] = true;
 
-        for (j = 0; j < grafo->num_no; j++)
+        for (j = 0; j < grafo->qtd_nos; j++)
         {
             if (!visitado[j] && grafo->matriz[u][j] != 0 && dist[u] != INT_MAX &&
                 dist[u] + grafo->matriz[u][j] < dist[j])
@@ -99,7 +99,7 @@ void dijkstra(Grafo *grafo, int c)
     }
 
     printf("Resposta:");
-    for (i = 0; i < grafo->num_no; i++)
+    for (i = 0; i < grafo->qtd_nos; i++)
     {
         if (dist[i] != INT_MAX)
             printf(" [%d] ", dist[i]);
@@ -113,7 +113,7 @@ void dijkstra(Grafo *grafo, int c)
 
 void expurgar(Grafo *grafo)
 {
-    for (int i = 0; i < grafo->num_no; i++)
+    for (int i = 0; i < grafo->qtd_nos; i++)
         free(grafo->matriz[i]);
     free(grafo->matriz);
     free(grafo);
