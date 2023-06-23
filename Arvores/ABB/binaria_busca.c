@@ -1,9 +1,6 @@
-#include "binary_search_tree.h"
+#include "binaria_busca.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-
-
 
 struct no {
     int chave;

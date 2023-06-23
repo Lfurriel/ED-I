@@ -68,7 +68,6 @@ no *libera_no (no *t) {
 
         return t;
     }
-
     return substitui_menor_dir(t, &(*t)->dir);
 }
 
